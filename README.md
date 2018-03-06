@@ -35,8 +35,6 @@ services:
   slave1:
     image: microsheen/hadoop-base:latest
     hostname: slave1
-    depends_on:
-      - master
     env_file:
       - ./cluster.env
     networks:
@@ -45,8 +43,6 @@ services:
   slave2:
     image: microsheen/hadoop-base:latest
     hostname: slave2
-    depends_on:
-      - master
     env_file:
       - ./cluster.env         
     networks:
@@ -55,8 +51,6 @@ services:
   slave3:
     image: microsheen/hadoop-base:latest
     hostname: slave3
-    depends_on:
-      - master
     env_file:
       - ./cluster.env              
     networks:
