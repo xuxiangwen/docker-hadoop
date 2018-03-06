@@ -17,8 +17,11 @@
 ## 启动
 ```bash
 docker stack deploy -c docker-compose.yml hadoop  #部署      
-#检查部署状态。直到所有的容器全部启动完成（每个容器的CURRENT STATE从Preparing about \*\*\*变成Running about \*\*\*），再进行下一步。   
-#第一次的时候，时间需要长一些，这是因为每个机器都需要到docker hub上下载大小1.2GB的image，所以需要一定的时间。   
+
+#检查部署状态。直到所有的容器全部启动完成
+#当每个容器的CURRENT STATE从Preparing about \*\*\*变成Running about \*\*\*），再进行下一步。   
+#第一次的时候，时间需要长一些
+#这是因为每个机器都需要到docker hub上下载大小1.2GB的image，所以需要一定的时间。   
 watch -n 10 "docker stack ps hadoop"      
 ```
 
@@ -38,7 +41,7 @@ start-yarn.sh
 ## 验证Hadoop
 ### shell  
 ```bash
-pdsh -R ssh -w grid@master,$hadoop_slaves jps | grep -E "NameNode|DataNode|ResourceManager|NodeManager"    
+pdsh -R ssh -w grid@master,$hadoop_slaves jps  | grep -E "NameNode|DataNode|ResourceManager|NodeManager"   
 hdfs dfsadmin -report  
 ```
 
@@ -85,7 +88,9 @@ $aa_path/spark/bin/spark-submit --master spark://master:7077 --class org.apache.
 
 # 停止  
 ## 停止集群  
+```bash
 docker stack rm hadoop  
+```
 
 ## 停止Hadoop  
 ```bash
@@ -94,8 +99,10 @@ stop-dfs.sh
 ```
 
 ## 停止spark  
+```bash
 $aa_path/spark/sbin/stop-all.sh  
 $aa_path/spark/sbin/stop-history-server.sh  
+```
 
 
 
