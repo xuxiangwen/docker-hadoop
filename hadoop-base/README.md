@@ -10,6 +10,8 @@ docker stop hadoop-base-1
 docker rmi --force 127.0.0.1:9900/hadoop-base:latest  
 docker build -t 127.0.0.1:9900/hadoop-base:latest .  
 docker push 127.0.0.1:9900/hadoop-base:latest #update to registry
+docker tag  127.0.0.1:9900/hadoop-base:latest microsheen/hadoop-base:latest
+docker push microsheen/hadoop-base:latest
 
 docker run -u grid -it --env-file  ../cluster.env -d  --name hadoop-base-1 --rm 127.0.0.1:9900/hadoop-base:latest
 docker exec -it hadoop-base-1 bash

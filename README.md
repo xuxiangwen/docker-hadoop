@@ -1,6 +1,6 @@
 这个一个基于docker的hadoop和spark集群。类似的例子其实在网上已经有了不少，本集群的特点有：
 
-1. 基于docker swarm， 支持单机和多机。 
+1. 基于docker swarm， 支持单机和多机。docker swarm的安装参https://yeasy.gitbooks.io/docker_practice/content/swarm/
 2. 基于centos7构建的image，满足喜欢折腾centos的同学。  
 
 
@@ -9,6 +9,9 @@
 ## 配置
 ### 配置docker-compose.yml
 在docker-compose.yml可以配置多个slave。
+
+### 编辑cluster.env
+保证里面的slaves的机器和docker-compose.yml相同。
 
 
 ## 启动
@@ -25,14 +28,17 @@ start-dfs.sh
 start-yarn.sh  
 
 
+
 ## 验证Hadoop
 ### shell  
-pdsh -R ssh -w grid@$hadoop_master,$hadoop_slaves jps | grep -E "NameNode|DataNode|ResourceManager|NodeManager"    
+pdsh -R ssh -w grid@master,$hadoop_slaves jps | grep -E "NameNode|DataNode|ResourceManager|NodeManager"    
 hdfs dfsadmin -report  
 
 ### monitor
-http://aa00:50070/dfshealth.html  
-http://aa00:8088/cluster/nodes  
+在swarm mananger的节点上。
+
+http://localhost:50070/dfshealth.html  
+http://localhost:8088/cluster/nodes  
 
 ## 测试  
 hadoop fs -mkdir -p /input  
@@ -56,12 +62,11 @@ $aa_path/spark/sbin/start-history-server.sh
 pdsh -R ssh -w grid@master,$spark_slaves jps | grep -E "Master|Worker|HistoryServer"  
 
 ### monitor  
-http://aa00:8080  
+http://localhost:8080  
 
 ## 测试
 $aa_path/spark/bin/spark-submit --master spark://master:7077 --class org.apache.spark.examples.JavaWordCount $aa_path/spark/examples/jars/spark-examples_2.11-2.2.1.jar /input/entrypoint.sh  
-$aa_path/spark/bin/spark-submit --master yarn --deploy-mode client --class org.apache.spark.examples.JavaWordCount $aa_path/spark/examples/jars/spark-examples_2.11-2.2.1.jar /input/entrypoint.sh  
-$aa_path/spark/bin/spark-submit --master yarn --deploy-mode cluster --class org.apache.spark.examples.JavaWordCount $aa_path/spark/examples/jars/spark-examples_2.11-2.2.1.jar /input/entrypoint.sh  
+
 
 # 停止  
 ## 停止集群  
@@ -77,13 +82,4 @@ $aa_path/spark/sbin/stop-history-server.sh
 
 
 
-# 其他实验命令（不保证一定成功） 
-ssh grid@aa00 mkdir -p /opt/mount1/aa/master/hadoop/hdfs/name  
-ssh grid@aa01 mkdir -p /opt/mount1/aa/slave1/hadoop/hdfs/data  
-ssh grid@aa02 mkdir -p /opt/mount1/aa/slave2/hadoop/hdfs/data  
-ssh grid@aa03 mkdir -p /opt/mount1/aa/slave3/hadoop/hdfs/data  
-
-slave_number=1;docker exec -it $(docker ps  | grep  hadoop_slave$slave_number | awk '{print $NF}') bash  
-slave_number=2;docker exec -it $(docker ps  | grep  hadoop_slave$slave_number | awk '{print $NF}') bash  
-slave_number=3;docker exec -it $(docker ps  | grep  hadoop_slave$slave_number | awk '{print $NF}') bash  
 

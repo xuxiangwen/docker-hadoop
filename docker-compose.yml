@@ -2,7 +2,7 @@ version: '3'
 
 services:
   master:
-    image: 127.0.0.1:9900/hadoop-base:latest
+    image: microsheen/hadoop-base:latest
     hostname: master
     env_file:
       - ./cluster.env    
@@ -19,7 +19,7 @@ services:
       - net       
 
   slave1:
-    image: 127.0.0.1:9900/hadoop-base:latest
+    image: microsheen/hadoop-base:latest
     hostname: slave1
     depends_on:
       - master
@@ -29,7 +29,7 @@ services:
       - net            
   
   slave2:
-    image: 127.0.0.1:9900/hadoop-base:latest
+    image: microsheen/hadoop-base:latest
     hostname: slave2
     depends_on:
       - master
@@ -39,7 +39,7 @@ services:
       - net            
       
   slave3:
-    image: 127.0.0.1:9900/hadoop-base:latest
+    image: microsheen/hadoop-base:latest
     hostname: slave3
     depends_on:
       - master
