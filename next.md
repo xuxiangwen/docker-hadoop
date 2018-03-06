@@ -6,6 +6,7 @@ ssh grid@aa01 mkdir -p /opt/mount1/aa/slave1/hadoop/hdfs/data
 ssh grid@aa02 mkdir -p /opt/mount1/aa/slave2/hadoop/hdfs/data  
 ssh grid@aa03 mkdir -p /opt/mount1/aa/slave3/hadoop/hdfs/data  
 
+docker exec -it $(docker ps | grep hadoop_master | awk '{print $NF}') bash
 slave_number=1;docker exec -it $(docker ps  | grep  hadoop_slave$slave_number | awk '{print $NF}') bash  
 slave_number=2;docker exec -it $(docker ps  | grep  hadoop_slave$slave_number | awk '{print $NF}') bash  
 slave_number=3;docker exec -it $(docker ps  | grep  hadoop_slave$slave_number | awk '{print $NF}') bash  
