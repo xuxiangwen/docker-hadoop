@@ -15,28 +15,32 @@
 
 
 ## 启动
+```bash
 docker stack deploy -c docker-compose.yml hadoop  #部署      
 #检查部署状态。直到所有的容器全部启动完成（每个容器的CURRENT STATE从Preparing about \*\*\*变成Running about \*\*\*），再进行下一步。   
 #第一次的时候，时间需要长一些，这是因为每个机器都需要到docker hub上下载大小1.2GB的image，所以需要一定的时间。   
-watch -n 10 "docker stack ps hadoop"              
-
-
+watch -n 10 "docker stack ps hadoop"      
+```
 
 
 # Hadoop   
 ## 启动Hadoop   
 #登录master节点    
+```bash
 docker exec -it hadoop_master.1.$(docker service ps hadoop_master -q -f "desired-state=running") bash       
 hdfs namenode -format      #注意在容器启动之后，第一次需要格式化
 
 start-dfs.sh  
 start-yarn.sh  
+```
 
 
 ## 验证Hadoop
 ### shell  
+```bash
 pdsh -R ssh -w grid@master,$hadoop_slaves jps | grep -E "NameNode|DataNode|ResourceManager|NodeManager"    
 hdfs dfsadmin -report  
+```
 
 ### monitor
 在swarm mananger的节点上。
@@ -45,6 +49,7 @@ http://localhost:50070/dfshealth.html
 http://localhost:8088/cluster/nodes  
 
 ## 测试  
+```bash
 hadoop fs -mkdir -p /input  
 hadoop fs -put $aa_path/bin/*.sh /input  
 hadoop fs -ls /input  
@@ -52,33 +57,41 @@ hadoop fs -ls /input
 hadoop fs -mkdir -p /output  
 hadoop fs -rm -r /output/wordcount  
 yarn jar $aa_path/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.5.jar wordcount /input /output/wordcount  
-hadoop fs -cat /output/wordcount/*  
+hadoop fs -cat /output/wordcount/*
+```
 
 
 # Spark  
 ## 启动Spark  
+```bash
 $aa_path/spark/sbin/start-all.sh  
 $aa_path/spark/sbin/start-history-server.sh  
+```
 
 
 ## 验证Spark  
 ### shell  
+```bash
 pdsh -R ssh -w grid@master,$spark_slaves jps | grep -E "Master|Worker|HistoryServer"  
+```
 
 ### monitor  
 http://localhost:8080  
 
 ## 测试
+```bash
 $aa_path/spark/bin/spark-submit --master spark://master:7077 --class org.apache.spark.examples.JavaWordCount $aa_path/spark/examples/jars/spark-examples_2.11-2.2.1.jar /input/entrypoint.sh  
-
+```
 
 # 停止  
 ## 停止集群  
 docker stack rm hadoop  
 
 ## 停止Hadoop  
+```bash
 stop-yarn.sh  
 stop-dfs.sh  
+```
 
 ## 停止spark  
 $aa_path/spark/sbin/stop-all.sh  
