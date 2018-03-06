@@ -80,7 +80,7 @@ spark_slaves=slave1,slave2,slave3
 docker stack deploy -c docker-compose.yml hadoop  #部署      
 
 #检查部署状态。直到所有的容器全部启动完成
-#当每个容器的CURRENT STATE从Preparing about \*\*\*变成Running about \*\*\*），再进行下一步。   
+#当每个容器的CURRENT STATE从Preparing about ***变成Running about ***），再进行下一步。   
 #第一次的时候，时间需要长一些。这是因为每个机器都需要到docker hub上下载image，所以需要一定的时间。   
 watch -n 10 "docker stack ps hadoop"      
 ```
