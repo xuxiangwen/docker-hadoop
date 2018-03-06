@@ -1,6 +1,6 @@
 这是一个docker的hadoop和spark集群。本集群的特点有：
 
-1. 基于docker swarm， 支持单机和多机。docker swarm的安装参https://yeasy.gitbooks.io/docker_practice/content/swarm/
+1. 基于docker swarm， 支持单机和多机。docker swarm的安装参考  https://yeasy.gitbooks.io/docker_practice/content/swarm/
 2. 基于centos7构建的image，满足喜欢折腾centos的同学。  
 
 
