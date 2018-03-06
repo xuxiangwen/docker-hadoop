@@ -4,7 +4,7 @@
 2. 基于centos7构建的image，满足喜欢折腾centos的同学。  
 
 
-# 集群
+# 1 集群
 
 ## 配置
 ### 配置docker-compose.yml
@@ -26,7 +26,7 @@ watch -n 10 "docker stack ps hadoop"      
 ```
 
 
-# Hadoop   
+# 2 Hadoop    
 ## 启动Hadoop   
 #登录master节点    
 ```bash
@@ -64,7 +64,7 @@ hadoop fs -cat /output/wordcount/*
 ```
 
 
-# Spark  
+# 3 Spark   
 ## 启动Spark  
 ```bash
 $aa_path/spark/sbin/start-all.sh  
@@ -86,7 +86,7 @@ http://localhost:8080
 $aa_path/spark/bin/spark-submit --master spark://master:7077 --class org.apache.spark.examples.JavaWordCount $aa_path/spark/examples/jars/spark-examples_2.11-2.2.1.jar /input/entrypoint.sh  
 ```
 
-# 停止  
+# 4 停止   
 ## 停止集群  
 ```bash
 docker stack rm hadoop  
