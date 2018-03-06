@@ -1,0 +1,68 @@
+version: '3'
+
+services:
+  master:
+    image: 127.0.0.1:9900/hadoop-base:latest
+    hostname: master
+    volumes:
+      - /opt/mount1/aa/master/hadoop/hdfs/name:/opt/aa/hadoop/hdfs/name
+    env_file:
+      - ./cluster.env 
+    deploy:
+      placement:
+        constraints: [node.hostname == aa00]    
+    ports:
+      - "50070:50070"
+      - "9000:9000"             
+      - "8080:8080"
+      - "8088:8088"
+    networks:
+      - net       
+
+  slave1:
+    image: 127.0.0.1:9900/hadoop-base:latest
+    hostname: slave1
+    depends_on:
+      - master
+    volumes:
+      - /opt/mount1/aa/slave1/hadoop/hdfs/data:/opt/aa/hadoop/hdfs/data
+    env_file:
+      - ./cluster.env
+    deploy:
+      placement:
+        constraints: [node.hostname == aa01]           
+    networks:
+      - net            
+  
+  slave2:
+    image: 127.0.0.1:9900/hadoop-base:latest
+    hostname: slave2
+    depends_on:
+      - master
+    volumes:
+      - /opt/mount1/aa/slave2/hadoop/hdfs/data:/opt/aa/hadoop/hdfs/data
+    env_file:
+      - ./cluster.env
+    deploy:
+      placement:
+        constraints: [node.hostname == aa02]          
+    networks:
+      - net            
+      
+  slave3:
+    image: 127.0.0.1:9900/hadoop-base:latest
+    hostname: slave3
+    depends_on:
+      - master
+    volumes:
+      - /opt/mount1/aa/slave3/hadoop/hdfs/data:/opt/aa/hadoop/hdfs/data
+    env_file:
+      - ./cluster.env    
+    deploy:
+      placement:
+        constraints: [node.hostname == aa03]          
+    networks:
+      - net   
+  
+networks:
+  net:      

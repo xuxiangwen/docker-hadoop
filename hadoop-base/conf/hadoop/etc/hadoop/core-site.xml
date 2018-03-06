@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+<property>
+<name>fs.default.name</name>
+<value>hdfs://${hadoop_master}:${hadoop_hdfs_port}</value>
+</property>
+<property>
+<name>hadoop.tmp.dir</name>
+<value>file://${hadoop_tmp_dir}</value>
+<description></description>
+</property>
+</configuration>

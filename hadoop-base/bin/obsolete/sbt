@@ -1,0 +1,15 @@
+#!/bin/bash
+script=$(readlink -f "$0")
+scriptpath=$(dirname "$script")
+#$scriptpath/proxy.sh
+
+http_host=web-proxy.rose.hp.com
+http_port=8080
+https_host=web-proxy.rose.hp.com
+https_port=8080
+
+SBT_OPTS="-Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M"
+PROXY_OPTS="-Dhttp.proxyHost=$http_host  -Dhttp.proxyPort=$http_port -Dhttps.proxyHost=$https_host  -Dhttps.proxyPort=$https_port"
+#echo $@
+java $PROXY_OPTS $SBT_OPTS -jar $scriptpath/sbt-lib/sbt-launch.jar "$@"
+

@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  master:
+    image: 127.0.0.1:9900/hadoop-base:latest
+    hostname: master
+    env_file:
+      - ./cluster.env    
+    ports:
+      - "50070:50070"
+      - "9000:9000"             
+      - "8080:8080"
+      - "8088:8088"
+      - "18080:18080"    
+    deploy:
+      placement:
+        constraints: [node.role == manager]       
+    networks:
+      - net       
+
+  slave1:
+    image: 127.0.0.1:9900/hadoop-base:latest
+    hostname: slave1
+    depends_on:
+      - master
+    env_file:
+      - ./cluster.env
+    networks:
+      - net            
+  
+  slave2:
+    image: 127.0.0.1:9900/hadoop-base:latest
+    hostname: slave2
+    depends_on:
+      - master
+    env_file:
+      - ./cluster.env         
+    networks:
+      - net            
+      
+  slave3:
+    image: 127.0.0.1:9900/hadoop-base:latest
+    hostname: slave3
+    depends_on:
+      - master
+    env_file:
+      - ./cluster.env              
+    networks:
+      - net   
+  
+networks:
+  net:      

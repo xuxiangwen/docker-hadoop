@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+<property>
+<name>dfs.namenode.secondary.http-address</name>
+<value>hdfs://${hadoop_master}:9001</value>
+</property>
+<property>
+<name>dfs.namenode.name.dir</name>
+<value>file://${hadoop_name_dir}</value>
+</property>
+<property>
+<name>dfs.datanode.data.dir</name>
+<value>file://${hadoop_data_dir}</value>
+</property>
+<property>
+<name>dfs.replication</name>
+<value>${dfs_replication}</value>
+</property>
+</configuration>
