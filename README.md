@@ -11,8 +11,74 @@
 ### 配置docker-compose.yml
 在docker-compose.yml可以配置多个slave。
 
+```
+version: '3'
+
+services:
+  master:
+    image: microsheen/hadoop-base:latest
+    hostname: master
+    env_file:
+      - ./cluster.env    
+    ports:
+      - "50070:50070"
+      - "9000:9000"             
+      - "8080:8080"
+      - "8088:8088"
+      - "18080:18080"    
+    deploy:
+      placement:
+        constraints: [node.role == manager]       
+    networks:
+      - net       
+
+  slave1:
+    image: microsheen/hadoop-base:latest
+    hostname: slave1
+    depends_on:
+      - master
+    env_file:
+      - ./cluster.env
+    networks:
+      - net            
+  
+  slave2:
+    image: microsheen/hadoop-base:latest
+    hostname: slave2
+    depends_on:
+      - master
+    env_file:
+      - ./cluster.env         
+    networks:
+      - net            
+      
+  slave3:
+    image: microsheen/hadoop-base:latest
+    hostname: slave3
+    depends_on:
+      - master
+    env_file:
+      - ./cluster.env              
+    networks:
+      - net   
+  
+networks:
+  net:   
+```
+
 ### 编辑cluster.env
 保证里面的slaves的机器和docker-compose.yml相同。
+```
+# ----------------------------------------
+# hdoop
+# ----------------------------------------
+hadoop_slaves=slave1,slave2,slave3
+
+# ----------------------------------------
+# spark
+# ----------------------------------------
+spark_slaves=slave1,slave2,slave3
+```
 
 
 ## 启动
