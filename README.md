@@ -41,7 +41,7 @@ start-yarn.sh
 ## 验证Hadoop
 ### shell  
 ```bash
-pdsh -R ssh -w grid@master,$hadoop_slaves jps  | grep -E "NameNode|DataNode|ResourceManager|NodeManager"   
+pdsh -R ssh -w grid@master,$hadoop_slaves jps | grep -E "NameNode|DataNode|ResourceManager|NodeManager"   
 hdfs dfsadmin -report  
 ```
 
@@ -59,7 +59,8 @@ hadoop fs -ls /input
 
 hadoop fs -mkdir -p /output  
 hadoop fs -rm -r /output/wordcount  
-yarn jar $aa_path/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.5.jar wordcount /input /output/wordcount  
+yarn jar $aa_path/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.5.jar wordcount \  
+/input /output/wordcount 
 hadoop fs -cat /output/wordcount/*
 ```
 
@@ -83,7 +84,8 @@ http://localhost:8080
 
 ## 测试
 ```bash
-$aa_path/spark/bin/spark-submit --master spark://master:7077 --class org.apache.spark.examples.JavaWordCount $aa_path/spark/examples/jars/spark-examples_2.11-2.2.1.jar /input/entrypoint.sh  
+$aa_path/spark/bin/spark-submit --master spark://master:7077 \  
+--class org.apache.spark.examples.JavaWordCount $aa_path/spark/examples/jars/spark-examples_2.11-2.2.1.jar \  /input/entrypoint.sh  
 ```
 
 # 4. 停止   
