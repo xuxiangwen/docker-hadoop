@@ -84,7 +84,8 @@ http://localhost:8080
 ## 测试
 ```bash
 $aa_path/spark/bin/spark-submit --master spark://master:7077 \  
---class org.apache.spark.examples.JavaWordCount $aa_path/spark/examples/jars/spark-examples_2.11-2.2.1.jar \  /input/entrypoint.sh  
+--class org.apache.spark.examples.JavaWordCount $aa_path/spark/examples/jars/spark-examples_2.11-2.2.1.jar \ 
+/input/entrypoint.sh  
 ```
 
 # 4. 停止   
