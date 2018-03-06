@@ -105,9 +105,7 @@ pdsh -R ssh -w grid@master,$hadoop_slaves jps | grep -E "NameNode|DataNode|Resou
 hdfs dfsadmin -report  
 ```
 
-### monitor
-在swarm mananger的节点上。
-
+### monitor  
 http://localhost:50070/dfshealth.html  
 http://localhost:8088/cluster/nodes  
 
