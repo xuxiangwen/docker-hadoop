@@ -2,7 +2,7 @@
 
 1. 基于docker swarm， 支持单机和多机。docker swarm的安装参考  https://yeasy.gitbooks.io/docker_practice/content/swarm/
 2. 基于centos7构建的image，满足喜欢折腾centos的同学。  
-3. 集成了测试的脚本，方便检查集群状态。
+3. 集成了验证和测试的脚本，方便检查集群状态。
 
 
 # 1. 集群
