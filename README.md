@@ -16,8 +16,8 @@
 
 ## 启动
 docker stack deploy -c docker-compose.yml hadoop  #部署      
-#检查部署状态。直到所有的容器全部启动完成（每个容器的CURRENT STATE从Preparing about \*\*\*变成Running about \*\*\*），再进行下一步。  
-#第一次的时候，时间需要长一些，这是因为每个机器都需要到docker hub上下载大小1.2GB的image，所以需要一定的时间。  
+#检查部署状态。直到所有的容器全部启动完成（每个容器的CURRENT STATE从Preparing about \*\*\*变成Running about \*\*\*），再进行下一步。   
+#第一次的时候，时间需要长一些，这是因为每个机器都需要到docker hub上下载大小1.2GB的image，所以需要一定的时间。   
 watch -n 10 "docker stack ps hadoop"              
 
 
@@ -25,7 +25,7 @@ watch -n 10 "docker stack ps hadoop"            
 
 # Hadoop   
 ## 启动Hadoop   
-#登录master节点
+#登录master节点    
 docker exec -it hadoop_master.1.$(docker service ps hadoop_master -q -f "desired-state=running") bash       
 hdfs namenode -format      #注意在容器启动之后，第一次需要格式化
 
