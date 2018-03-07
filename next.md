@@ -12,7 +12,7 @@ slave_number=1;docker exec -it $(docker ps  | grep  hadoop_slave$slave_number | 
 slave_number=2;docker exec -it $(docker ps  | grep  hadoop_slave$slave_number | awk '{print $NF}') bash  
 slave_number=3;docker exec -it $(docker ps  | grep  hadoop_slave$slave_number | awk '{print $NF}') bash  
 
-#windows
+#windows  
 winpty docker exec -it $(docker ps | grep hadoop_master | awk '{print $NF}') bash 
 
 #这两个会失败，寻找原因中。
