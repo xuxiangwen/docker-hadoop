@@ -1,5 +1,6 @@
 # 其他实验命令（不保证一定成功） 
 docker stack deploy -c docker-compose-registry.yml hadoop 
+docker stack deploy -c docker-compose-window.yml hadoop
 
 ssh grid@aa00 mkdir -p /opt/mount1/aa/master/hadoop/hdfs/name  
 ssh grid@aa01 mkdir -p /opt/mount1/aa/slave1/hadoop/hdfs/data  
